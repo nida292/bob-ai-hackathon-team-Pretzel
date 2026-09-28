@@ -1,79 +1,104 @@
 # Setup Guide
 
-> **This file is read by the automated evaluation pipeline. Be precise and complete.**
+> **ForensiTriage requires no installation, no server, and no dependencies.**
 
 ## Prerequisites
 
-Before you begin, ensure you have the following installed:
+| Requirement | Details |
+|---|---|
+| **Web Browser** | Chrome 90+, Edge 90+, Firefox 88+, or Safari 14+ |
+| **No other software needed** | No Node.js, Python, Docker, or database required to run the application |
 
-- [ ] [e.g., Python 3.11+]
-- [ ] [e.g., Node.js 18+]
-- [ ] [e.g., Docker Desktop]
-- [ ] [e.g., An IBM Cloud account with watsonx.ai access]
+> **Optional** — if you want to serve over HTTP instead of opening the file directly:
+> - Python 3 (any version), **or**
+> - Node.js (for `npx serve`)
 
 ## Environment Variables
 
-Copy `.env.example` to `.env` and fill in the values:
-
-```bash
-cp .env.example .env
-```
-
-| Variable | Description | Required |
-|---|---|---|
-| `WATSONX_API_KEY` | Your IBM watsonx.ai API key | Yes |
-| `WATSONX_PROJECT_ID` | Your watsonx.ai project ID | Yes |
-| `DATABASE_URL` | PostgreSQL connection string | Yes |
-| `SLACK_WEBHOOK_URL` | Slack webhook for alerts | No |
+None. ForensiTriage makes no network requests and requires no API keys or configuration.
 
 ## Installation
 
+There is nothing to install.
+
 ```bash
-# 1. Clone the repository
-git clone https://github.com/[your-org]/[your-repo].git
-cd [your-repo]
-
-# 2. Install backend dependencies
-[your command — e.g.: pip install -r requirements.txt]
-
-# 3. Install frontend dependencies (if applicable)
-[your command — e.g.: cd frontend && npm install]
-
-# 4. Set up the database (if applicable)
-[your command — e.g.: python manage.py migrate]
+# Clone the repository
+git clone https://github.com/[your-org]/bob-ai-hackathon-team-Pretzel.git
+cd bob-ai-hackathon-team-Pretzel
 ```
+
+All source code is in the `src/` directory.
 
 ## Running the Application
 
-```bash
-# Start the backend
-[your command — e.g.: uvicorn app.main:app --reload]
+### Option 1 — Open directly (simplest)
 
-# Start the frontend (in a separate terminal, if applicable)
-[your command — e.g.: cd frontend && npm run dev]
+```bash
+# On Windows — double-click src/index.html, OR:
+start src/index.html
+
+# On macOS
+open src/index.html
+
+# On Linux
+xdg-open src/index.html
 ```
 
-The application will be available at: `http://localhost:[PORT]`
+### Option 2 — Python local server (recommended to avoid any file:// edge cases)
+
+```bash
+cd src
+python -m http.server 8080
+```
+Then open **http://localhost:8080** in your browser.
+
+### Option 3 — Node.js serve
+
+```bash
+cd src
+npx serve .
+```
+Then open the URL shown in the terminal (usually **http://localhost:3000**).
+
+## Quick Demo
+
+Once the application is open in your browser:
+
+1. Click **"Load Demo"** on the dashboard (or the "Load Demo" quick-action button).
+2. A fictional homicide case ("Riverside Apartment Homicide") with 6 evidence items is loaded automatically.
+3. Click **"Priorities"** in the navigation to see the rule-based prioritization results.
+4. Click any priority card to expand it and see score breakdown, factors, and examination recommendations.
+5. Click **"Schedule"** to see the proposed examination order.
+6. Click **"Report"** and then **"Print / Save as PDF"** to generate a printable report.
+7. Click **"Reset Demo"** on the dashboard to remove the demo data (your own cases are unaffected).
 
 ## Running Tests
 
-```bash
-[your test command — e.g.: pytest tests/ -v]
-```
+There is no automated test runner. Manual testing steps are documented in [`docs/solution-overview.md`](solution-overview.md).
 
-## Quick Demo (Optional)
-
-If you have a demo script or sample data to showcase the project quickly:
-
-```bash
-[e.g.: python demo/seed_demo_data.py]
-[e.g.: open http://localhost:8000/demo]
-```
+To manually verify the application:
+1. Open `src/index.html` in Chrome/Edge.
+2. Open browser DevTools (F12) and check the Console tab for errors.
+3. Load the demo case and navigate through all views.
+4. Create a new case, add evidence, and verify prioritization.
+5. Test form validation by submitting empty required fields.
+6. Test search and filter on the Evidence view.
+7. Apply a priority override and verify it appears in the report.
+8. Print the report and verify layout.
 
 ## Troubleshooting
 
 | Issue | Solution |
 |---|---|
-| [e.g., `ModuleNotFoundError`] | [e.g., Run `pip install -r requirements.txt` again] |
-| [e.g., Database connection refused] | [e.g., Ensure PostgreSQL is running: `docker compose up db`] |
-| [e.g., watsonx.ai 401 error] | [e.g., Check `WATSONX_API_KEY` in your `.env` file] |
+| Blank page when opening `index.html` | Ensure all 4 JS files (`app.js`, `storage.js`, `prioritization.js`, `reports.js`) are in the same `src/` folder as `index.html` |
+| "localStorage is not available" error | Enable localStorage in browser settings; some browsers block it in private/incognito mode |
+| Old data appears after pulling new code | Open DevTools → Application → Local Storage → clear `forensitriage_*` keys |
+| Print layout looks wrong | Use Chrome or Edge for best print/PDF output; Firefox may render slightly differently |
+| JS errors in console | Ensure you are opening `index.html` from the `src/` directory, not a parent folder |
+
+## Data Persistence Notes
+
+- All data is stored in the browser's **localStorage** under keys prefixed `forensitriage_`.
+- Data persists between browser sessions until localStorage is cleared.
+- Data is **not** shared between different browsers or devices.
+- **⚠ Warning:** localStorage is not encrypted and not suitable for real confidential forensic evidence.

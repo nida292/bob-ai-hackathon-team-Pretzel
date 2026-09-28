@@ -1,15 +1,17 @@
-https://youtu.be/your-demo-video-link-here
+https://youtu.be/PENDING_RECORDING
 
-Replace the URL above with a link to your demo video.
+Demo video for ForensiTriage — AI-Assisted Crime Scene Evidence Prioritization
+Team: Pretzel | IBM × NFSU Hackathon
 
-Accepted platforms:
-  - YouTube (public or unlisted)
-  - Loom (https://www.loom.com/share/...)
-  - IBM Box (https://ibm.box.com/s/...)
-  - Google Drive (set to "Anyone with the link can view")
+⚠ NOTE: This URL will be updated once the demo video is recorded and uploaded.
+The video will demonstrate:
+  - Dashboard overview and case creation
+  - Adding evidence items with metadata
+  - Rule-based prioritization with factor breakdowns
+  - Manual priority override with reason capture
+  - Proposed examination schedule
+  - Printable PDF report generation
+  - One-click demo case loading and reset
 
-Video requirements:
-  - Length: 3–5 minutes maximum
-  - Must show the application running (not just slides)
-  - Should walk through at least one key feature end-to-end
-  - Audio narration strongly recommended
+Platform: YouTube (to be uploaded)
+Expected length: 3–5 minutes

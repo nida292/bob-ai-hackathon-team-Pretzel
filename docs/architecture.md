@@ -2,48 +2,83 @@
 
 ## System Architecture
 
-[Describe the overall architecture of your system. Replace the Mermaid diagram below with your actual architecture.]
+ForensiTriage is a pure client-side single-page application. There is no backend server, no database, and no external API calls. All data is stored in the browser's localStorage.
 
 ```mermaid
 graph TD
-    A[User / Browser] -->|HTTP| B[Frontend - React]
-    B -->|REST API| C[Backend - FastAPI]
-    C -->|SDK| D[watsonx.ai]
-    C -->|Query| E[PostgreSQL]
-    C -->|Publish| F[Slack Webhook]
-    D -->|Inference Result| C
+    A[Investigator / Browser] -->|Opens| B[index.html]
+    B --> C[app.js — UI Controller]
+    B --> D[storage.js — localStorage Layer]
+    B --> E[prioritization.js — Rule Engine]
+    B --> F[reports.js — Report Generator]
+    B --> G[styles.css — UI Styles]
+
+    C -->|Read / Write data| D
+    C -->|Score evidence| E
+    C -->|Generate report HTML| F
+
+    D -->|Persist / retrieve| H[(Browser localStorage)]
+
+    E -->|Returns scored + sorted evidence| C
+    F -->|Returns report HTML| C
+
+    C -->|Render to DOM| A
+    C -->|window.print| I[Browser Print / PDF]
 ```
 
 ## Components
 
-| Component | Technology | Responsibility |
+| Component | File | Responsibility |
 |---|---|---|
-| Frontend | [e.g., React 18] | [e.g., Dashboard UI, user interaction] |
-| Backend API | [e.g., FastAPI] | [e.g., Business logic, orchestration] |
-| AI / ML | [e.g., watsonx.ai] | [e.g., Anomaly scoring, classification] |
-| Database | [e.g., PostgreSQL] | [e.g., Storing pipeline events and scores] |
-| Notifications | [e.g., Slack API] | [e.g., Alerting on threshold breaches] |
+| UI Controller | `src/app.js` | Navigation, event handling, modal management, form validation, rendering all views |
+| Persistence Layer | `src/storage.js` | CRUD operations on cases and evidence in localStorage; corruption recovery |
+| Prioritization Engine | `src/prioritization.js` | Rule-based scoring, priority classification, factor explanations, exam recommendations, schedule generation |
+| Report Generator | `src/reports.js` | Produces printable HTML report from case + prioritized evidence data |
+| Stylesheet | `src/styles.css` | Dark forensic theme, responsive layout, print styles |
+| Entry Point | `src/index.html` | HTML shell, navigation, view containers, modal, toast notification area |
 
 ## Data Flow
 
-[Describe how data moves through your system from input to output.]
+1. Investigator opens `src/index.html` in a browser.
+2. `app.js` initialises, reads existing cases from `storage.js` (localStorage), and renders the dashboard.
+3. When a case is created or edited, `app.js` validates the form and calls `storage.js` to persist.
+4. When evidence is added, same pattern applies.
+5. When the Priorities view is opened, `app.js` calls `Prioritization.prioritizeEvidence(evidence)`:
+   - Each evidence item is scored across four factors (degradation, contamination, urgency, evidence value).
+   - Items are sorted by effective priority then score.
+   - Results are cached in `lastPrioritized` for reuse by Schedule and Report views.
+6. If an override is applied, it is written to the evidence object in localStorage and the priority cache is invalidated.
+7. The Schedule view sorts the cached prioritized list and adds slot rationale strings.
+8. The Report view calls `Reports.generateReport(caseObj, withSchedule)` which produces a self-contained HTML string injected into the DOM.
+9. Printing calls `window.print()` — the CSS `@media print` block hides navigation and formats for paper/PDF.
 
-1. [e.g., Pipeline logs are ingested via a webhook from GitHub Actions]
-2. [e.g., Logs are preprocessed and chunked into 512-token segments]
-3. [e.g., Each chunk is sent to the watsonx.ai inference endpoint]
-4. [e.g., Anomaly scores are stored in PostgreSQL]
-5. [e.g., The React dashboard polls the API every 30 seconds to refresh]
+## Scoring Algorithm Detail
+
+Each evidence item receives a score out of 100 from four independent factors:
+
+| Factor | Max Points | Key Inputs |
+|---|---|---|
+| Degradation | 30 | Evidence type (biological/trace = perishable), condition, days since collection |
+| Contamination | 25 | Contamination risk level (none/low/moderate/high) |
+| Urgency | 25 | Investigator-set urgency (routine/normal/urgent) |
+| Evidence Value | 20 | Evidence category forensic value (biological/fingerprint/digital = high) |
+
+**Classification thresholds:** Critical ≥ 55, High ≥ 30, Routine < 30.
+
+These thresholds and weights are prototype constants. They have not been validated against real forensic caseload data.
 
 ## Security Considerations
 
-[Note any security decisions relevant to the architecture — even if basic.]
-
-- [e.g., API keys stored in environment variables, never committed to git]
-- [e.g., All API routes require a Bearer token]
-- [e.g., Database credentials rotated via IBM Secrets Manager]
+- No secrets, API keys, or credentials of any kind — the application makes no network requests.
+- All user-entered text is HTML-escaped before insertion into the DOM, preventing XSS.
+- localStorage is not encrypted — not suitable for real confidential forensic evidence. A clear warning is shown in the application and on every report.
+- No external scripts, fonts, or CDN resources are loaded.
 
 ## Scalability Notes
 
-[Optional: how would this scale beyond the hackathon prototype?]
-
-[e.g., "The FastAPI backend is stateless and could be horizontally scaled behind a load balancer. The watsonx.ai calls are the bottleneck and would benefit from request batching."]
+As a browser-only prototype, scalability is intentionally out of scope. A production version would need:
+- A secure backend API (e.g., Node.js / Python) with proper authentication
+- An encrypted database (e.g., PostgreSQL) with audit logging
+- Role-based access control (investigator, supervisor, lab analyst)
+- The prioritization engine exposed as a backend service, with configurable weight profiles per laboratory
+- Integration with LIMS (Laboratory Information Management Systems)

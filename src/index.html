@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ForensiTriage — AI-Assisted Evidence Prioritization</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ===== TOP NAV ===== -->
+  <header class="topbar">
+    <div class="topbar-brand">
+      <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+      </svg>
+      <span class="brand-name">ForensiTriage</span>
+      <span class="brand-tagline">Evidence Prioritization System</span>
+    </div>
+    <nav class="topbar-nav" role="navigation" aria-label="Main navigation">
+      <button class="nav-btn active" data-view="dashboard" aria-current="page">Dashboard</button>
+      <button class="nav-btn" data-view="cases">Cases</button>
+      <button class="nav-btn" data-view="evidence" id="nav-evidence" disabled>Evidence</button>
+      <button class="nav-btn" data-view="priorities" id="nav-priorities" disabled>Priorities</button>
+      <button class="nav-btn" data-view="schedule" id="nav-schedule" disabled>Schedule</button>
+      <button class="nav-btn" data-view="report" id="nav-report" disabled>Report</button>
+    </nav>
+    <div class="topbar-case-indicator" id="active-case-badge" hidden>
+      <span class="case-badge-label">Active Case:</span>
+      <span id="active-case-title-badge">—</span>
+    </div>
+  </header>
+
+  <!-- ===== DISCLAIMER BANNER ===== -->
+  <div class="disclaimer-banner" role="alert">
+    <strong>⚠ Prototype Disclaimer:</strong> ForensiTriage is a decision-support prototype using rule-based logic. It does <em>not</em> replace qualified forensic experts, determine guilt, or provide legally validated conclusions. Data stored locally — not suitable for real confidential evidence.
+  </div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main id="main-content" role="main">
+
+    <!-- ─── DASHBOARD VIEW ─── -->
+    <section id="view-dashboard" class="view active" aria-labelledby="dashboard-heading">
+      <div class="view-header">
+        <h1 id="dashboard-heading">Dashboard</h1>
+        <p class="view-subtitle">Overview of your active cases and evidence inventory.</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-value" id="stat-total-cases">0</span>
+          <span class="stat-label">Total Cases</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="stat-active-cases">0</span>
+          <span class="stat-label">Active Cases</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="stat-total-evidence">0</span>
+          <span class="stat-label">Evidence Items</span>
+        </div>
+        <div class="stat-card critical">
+          <span class="stat-value" id="stat-critical">0</span>
+          <span class="stat-label">Critical Priority</span>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Recent Cases</h2>
+            <button class="btn btn-primary btn-sm" data-action="new-case">+ New Case</button>
+          </div>
+          <div id="recent-cases-list">
+            <!-- Populated by renderDashboard() -->
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h2 class="card-title">Quick Actions</h2></div>
+          <div class="quick-actions">
+            <button class="quick-action-btn" data-action="new-case">
+              <span class="qa-icon">📁</span>
+              <span>New Case</span>
+            </button>
+            <button class="quick-action-btn" data-action="add-evidence" id="qa-add-evidence">
+              <span class="qa-icon">🔬</span>
+              <span>Add Evidence</span>
+            </button>
+            <button class="quick-action-btn" data-action="run-prioritization" id="qa-run-priority">
+              <span class="qa-icon">⚡</span>
+              <span>Run Prioritization</span>
+            </button>
+            <button class="quick-action-btn" data-action="generate-report" id="qa-report">
+              <span class="qa-icon">📄</span>
+              <span>Generate Report</span>
+            </button>
+            <button class="quick-action-btn demo-action" data-action="load-demo">
+              <span class="qa-icon">🎭</span>
+              <span>Load Demo</span>
+            </button>
+            <button class="quick-action-btn danger-action" data-action="reset-demo" id="qa-reset-demo" hidden>
+              <span class="qa-icon">🔄</span>
+              <span>Reset Demo</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── CASES VIEW ─── -->
+    <section id="view-cases" class="view" aria-labelledby="cases-heading" hidden>
+      <div class="view-header">
+        <h1 id="cases-heading">Case Management</h1>
+        <button class="btn btn-primary" data-action="new-case">+ New Case</button>
+      </div>
+      <div id="cases-list-container">
+        <div class="empty-state">
+          <div class="empty-icon">📂</div>
+          <p>No cases created yet.</p>
+          <button class="btn btn-primary" data-action="new-case">Create First Case</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── EVIDENCE VIEW ─── -->
+    <section id="view-evidence" class="view" aria-labelledby="evidence-heading" hidden>
+      <div class="view-header">
+        <h1 id="evidence-heading">Evidence Management</h1>
+        <div class="view-header-actions">
+          <span class="active-case-label" id="evidence-case-label"></span>
+          <button class="btn btn-primary" data-action="add-evidence" id="btn-add-evidence">+ Add Evidence</button>
+        </div>
+      </div>
+      <div class="evidence-toolbar">
+        <input type="search" id="evidence-search" class="search-input" placeholder="Search evidence by name, type, or ID…" aria-label="Search evidence" />
+        <select id="evidence-filter-type" class="filter-select" aria-label="Filter by type">
+          <option value="">All Types</option>
+          <option value="biological">Biological</option>
+          <option value="digital">Digital</option>
+          <option value="fingerprint">Fingerprint / Impression</option>
+          <option value="trace">Trace</option>
+          <option value="physical">Physical</option>
+          <option value="document">Document</option>
+          <option value="other">Other</option>
+        </select>
+        <select id="evidence-filter-priority" class="filter-select" aria-label="Filter by priority">
+          <option value="">All Priorities</option>
+          <option value="critical">Critical</option>
+          <option value="high">High</option>
+          <option value="routine">Routine</option>
+        </select>
+      </div>
+      <div id="evidence-list-container">
+        <div class="empty-state">
+          <div class="empty-icon">🔬</div>
+          <p>No evidence added to this case yet.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PRIORITIES VIEW ─── -->
+    <section id="view-priorities" class="view" aria-labelledby="priorities-heading" hidden>
+      <div class="view-header">
+        <h1 id="priorities-heading">Evidence Priorities</h1>
+        <div class="view-header-actions">
+          <span class="active-case-label" id="priorities-case-label"></span>
+          <button class="btn btn-primary" data-action="run-prioritization">↻ Recalculate</button>
+        </div>
+      </div>
+      <div class="priority-legend">
+        <span class="priority-badge critical">Critical</span> Requires immediate examination — time-sensitive or highly contaminated.
+        <span class="priority-badge high">High</span> Examine within 24 h — significant forensic value.
+        <span class="priority-badge routine">Routine</span> Standard processing timeline acceptable.
+      </div>
+      <div class="priority-notice">
+        <strong>ℹ Rule-Based Scores:</strong> Priority scores are produced by a deterministic rule-based algorithm, not a trained AI model. They are prototype estimates only — final prioritization decisions must be made by qualified forensic personnel.
+      </div>
+      <div id="priorities-list-container"></div>
+    </section>
+
+    <!-- ─── SCHEDULE VIEW ─── -->
+    <section id="view-schedule" class="view" aria-labelledby="schedule-heading" hidden>
+      <div class="view-header">
+        <h1 id="schedule-heading">Proposed Examination Schedule</h1>
+        <div class="view-header-actions">
+          <span class="active-case-label" id="schedule-case-label"></span>
+          <button class="btn btn-secondary" data-action="generate-report">📄 Generate Report</button>
+        </div>
+      </div>
+      <div class="schedule-notice">
+        <strong>⚠ Proposed Order Only:</strong> This schedule is a suggested examination order based on calculated priorities. It does not reflect actual laboratory capacity, staff availability, or instrument scheduling. Qualified forensic supervisors must confirm and adjust the schedule.
+      </div>
+      <div id="schedule-container"></div>
+    </section>
+
+    <!-- ─── REPORT VIEW ─── -->
+    <section id="view-report" class="view" aria-labelledby="report-heading" hidden>
+      <div class="view-header">
+        <h1 id="report-heading">Printable Report</h1>
+        <div class="view-header-actions">
+          <button class="btn btn-primary" onclick="window.print()">🖨 Print / Save as PDF</button>
+        </div>
+      </div>
+      <div id="report-container"></div>
+    </section>
+
+  </main>
+
+  <!-- ===== MODALS ===== -->
+  <div id="modal-overlay" class="modal-overlay" hidden aria-modal="true" role="dialog">
+    <div class="modal" id="modal-box">
+      <button class="modal-close" id="modal-close-btn" aria-label="Close modal">✕</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST NOTIFICATIONS ===== -->
+  <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="storage.js"></script>
+  <script src="prioritization.js"></script>
+  <script src="reports.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
