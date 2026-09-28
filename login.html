@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In — ForensiTriage</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+</head>
+<body>
+  <div class="auth-page">
+
+    <!-- Left Panel -->
+    <div class="auth-panel">
+      <div class="auth-panel-logo">
+        <div class="auth-panel-logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <div class="auth-panel-logo-text">ForensiTriage</div>
+          <div class="auth-panel-logo-sub">Evidence Platform</div>
+        </div>
+      </div>
+
+      <div class="auth-panel-content">
+        <h1 class="auth-panel-title">Forensic Evidence Prioritization</h1>
+        <p class="auth-panel-desc">
+          A professional decision-support tool for investigators and forensic science laboratories.
+        </p>
+        <div class="auth-features">
+          <div class="auth-feature">
+            <div class="auth-feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <div class="auth-feature-title">Priority Classification</div>
+              <div class="auth-feature-desc">Assign and track Critical, High, Medium, Low priorities with full audit history.</div>
+            </div>
+          </div>
+          <div class="auth-feature">
+            <div class="auth-feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div>
+              <div class="auth-feature-title">FSL Submission Reports</div>
+              <div class="auth-feature-desc">Generate ranked examination schedules for Forensic Science Laboratory submission.</div>
+            </div>
+          </div>
+          <div class="auth-feature">
+            <div class="auth-feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <div>
+              <div class="auth-feature-title">Role-Based Access</div>
+              <div class="auth-feature-desc">Investigators control evidence priorities. Users can view and create cases.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="auth-panel-footer">
+        ForensiTriage is a decision-support tool. All recommendations must be reviewed and approved by a qualified investigator. The system does not make forensic or legal determinations.
+      </p>
+    </div>
+
+    <!-- Right Panel (Form) -->
+    <div class="auth-form-panel">
+      <div class="auth-form-container">
+        <div class="auth-form-header">
+          <h2 class="auth-form-title">Sign in to your account</h2>
+          <p class="auth-form-subtitle">Enter your credentials to access the ForensiTriage platform.</p>
+        </div>
+
+        <!-- Demo Accounts -->
+        <div class="auth-demo-box">
+          <div class="auth-demo-title">Demo Accounts</div>
+          <div class="auth-demo-account" data-email="investigator@forensitriage.demo" data-pass="Investigator@123">
+            <div class="auth-demo-info">
+              <div class="auth-demo-email">investigator@forensitriage.demo</div>
+              <div class="auth-demo-role">Investigator · Full Access</div>
+            </div>
+            <span class="auth-demo-use">Use →</span>
+          </div>
+          <div class="auth-demo-account" data-email="user@forensitriage.demo" data-pass="User@123">
+            <div class="auth-demo-info">
+              <div class="auth-demo-email">user@forensitriage.demo</div>
+              <div class="auth-demo-role">User · View Only</div>
+            </div>
+            <span class="auth-demo-use">Use →</span>
+          </div>
+        </div>
+
+        <div class="auth-divider"><span class="auth-divider-text">or enter credentials</span></div>
+
+        <!-- Error -->
+        <div id="login-error" class="alert alert-danger mb-4 hidden" role="alert">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          <span></span>
+        </div>
+
+        <!-- Form -->
+        <form class="auth-form" id="login-form" novalidate>
+          <div class="form-group">
+            <label class="form-label form-label-req" for="login-email">Email Address</label>
+            <input type="email" id="login-email" name="email" class="input"
+              placeholder="you@example.com" autocomplete="email" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label form-label-req" for="login-password">Password</label>
+            <div class="password-toggle">
+              <input type="password" id="login-password" name="password" class="input"
+                placeholder="Enter your password" autocomplete="current-password" required />
+              <button type="button" class="password-toggle-btn" aria-label="Toggle password">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+          </div>
+          <button type="submit" id="login-submit" class="btn btn-primary auth-submit">Sign In</button>
+        </form>
+
+        <p class="auth-switch">
+          Don't have an account? <a href="signup.html">Create one</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Apply persisted theme
+    const savedTheme = localStorage.getItem('ft_theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    // Seed demo data
+    seedDemoData();
+    // Init page
+    initLoginPage();
+  </script>
+</body>
+</html>

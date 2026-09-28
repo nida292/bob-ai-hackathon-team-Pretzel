@@ -1,0 +1,129 @@
+/* ============================================================
+   ForensiTriage — Responsive Breakpoints
+   ============================================================ */
+
+/* ── Tablet (≤ 1100px) ──────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .stats-grid       { grid-template-columns: repeat(2, 1fr); }
+  .dashboard-grid   { grid-template-columns: 1fr; }
+  .dashboard-side   { grid-column: 1; }
+  .case-detail-info-grid { grid-template-columns: repeat(2, 1fr); }
+  .evidence-detail-layout { grid-template-columns: 1fr; }
+  .profile-layout   { grid-template-columns: 1fr; }
+  .grid-sidebar     { grid-template-columns: 1fr; }
+  .grid-4           { grid-template-columns: repeat(2, 1fr); }
+  .topbar-search input { width: 180px; }
+}
+
+/* ── Small Tablet (≤ 860px) ─────────────────────────────────── */
+@media (max-width: 860px) {
+  :root { --sidebar-width: 0px; }
+
+  .sidebar {
+    transform: translateX(-240px);
+    width: 240px;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .sidebar-overlay { display: block; }
+  .sidebar-overlay.visible { display: block; }
+  .sidebar-overlay:not(.visible) { display: none; }
+
+  .main-content { margin-left: 0; }
+  .mobile-menu-btn { display: flex; }
+
+  .page-body { padding: var(--space-6) var(--space-5); }
+  .page-header { flex-direction: column; align-items: flex-start; }
+  .page-actions { width: 100%; justify-content: flex-start; flex-wrap: wrap; }
+
+  .topbar { padding: 0 var(--space-4); }
+  .topbar-search { display: none; }
+
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .grid-4   { grid-template-columns: 1fr 1fr; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+
+  .case-detail-info-grid { grid-template-columns: 1fr; gap: var(--space-3); }
+  .evidence-detail-layout { grid-template-columns: 1fr; }
+
+  .toolbar { flex-direction: column; align-items: stretch; }
+  .toolbar-left, .toolbar-right { width: 100%; }
+
+  .table-wrapper { font-size: var(--text-xs); }
+  th, td { padding: 8px 12px; }
+
+  .auth-panel { display: none; }
+  .auth-page  { grid-template-columns: 1fr; }
+  .auth-form-panel { padding: var(--space-8) var(--space-5); }
+}
+
+/* ── Mobile (≤ 560px) ───────────────────────────────────────── */
+@media (max-width: 560px) {
+  .stats-grid { grid-template-columns: 1fr; }
+  .grid-4     { grid-template-columns: 1fr; }
+  .quick-actions { grid-template-columns: 1fr 1fr; }
+  .attachments-grid { grid-template-columns: repeat(3, 1fr); }
+
+  .page-body { padding: var(--space-5) var(--space-4); }
+  .card-body { padding: var(--space-4); }
+  .card-header { padding: var(--space-4); }
+
+  .modal { margin: var(--space-3); }
+  .modal-body { padding: var(--space-4); }
+
+  .stat-card-value { font-size: var(--text-2xl); }
+  .page-title { font-size: var(--text-xl); }
+  .case-detail-title { font-size: var(--text-xl); }
+  .evidence-detail-name { font-size: var(--text-xl); }
+
+  #toast-container {
+    bottom: var(--space-4);
+    right: var(--space-4);
+    left: var(--space-4);
+  }
+  .toast { max-width: 100%; }
+
+  .profile-layout { grid-template-columns: 1fr; }
+  .evidence-grid  { grid-template-columns: 1fr; }
+}
+
+/* ── Hover only on pointer devices ──────────────────────────── */
+@media (hover: none) {
+  .attachment-thumb-overlay { display: none; }
+  .evidence-card:hover { border-color: var(--border); box-shadow: none; }
+}
+
+/* ── Dark mode overrides for pages ─────────────────────────── */
+[data-theme="dark"] .auth-panel {
+  background: #060D1A;
+}
+[data-theme="dark"] .auth-form-panel {
+  background: var(--bg);
+}
+[data-theme="dark"] .auth-demo-box {
+  background: var(--surface);
+}
+[data-theme="dark"] thead {
+  background: var(--bg-secondary);
+}
+[data-theme="dark"] .filter-select,
+[data-theme="dark"] .search-input,
+[data-theme="dark"] .input,
+[data-theme="dark"] .textarea,
+[data-theme="dark"] .select {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--border);
+}
+[data-theme="dark"] .select,
+[data-theme="dark"] .filter-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+}
+[data-theme="dark"] .topbar {
+  background: var(--surface);
+  border-bottom-color: var(--border);
+}
+[data-theme="dark"] .topbar-search input {
+  background: var(--bg-secondary);
+}

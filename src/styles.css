@@ -650,9 +650,12 @@ body {
   border-radius: 4px;
   transition: width 0.4s ease;
 }
-.chart-bar-fill.critical { background: var(--critical); }
-.chart-bar-fill.high     { background: var(--high); }
-.chart-bar-fill.routine  { background: var(--routine); }
+.chart-bar-fill.critical   { background: var(--critical); }
+.chart-bar-fill.high       { background: var(--high); }
+.chart-bar-fill.medium     { background: var(--blue); }
+.chart-bar-fill.routine,
+.chart-bar-fill.low        { background: var(--routine); }
+.chart-bar-fill.unassigned { background: var(--border); }
 .chart-count {
   font-size: 0.78rem;
   font-weight: 700;
@@ -966,12 +969,26 @@ body {
   border-color: var(--high-border);
 }
 .priority-badge.high::before { background: var(--high); }
+.priority-badge.medium {
+  background: var(--blue-light);
+  color: var(--blue-hover);
+  border-color: var(--blue-border);
+}
+.priority-badge.medium::before { background: var(--blue); }
+.priority-badge.low,
 .priority-badge.routine {
   background: var(--routine-light);
   color: var(--routine-text);
   border-color: var(--routine-border);
 }
+.priority-badge.low::before,
 .priority-badge.routine::before { background: var(--routine); }
+.priority-badge.unassigned {
+  background: var(--surface-alt);
+  color: var(--text-muted);
+  border-color: var(--border);
+}
+.priority-badge.unassigned::before { background: var(--border); }
 .priority-badge.override {
   background: var(--override-light);
   color: var(--override-text);

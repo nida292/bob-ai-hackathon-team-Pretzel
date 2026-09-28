@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reports — ForensiTriage</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+<div class="app-layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <div class="main-content">
+    <header class="topbar" id="topbar"></header>
+
+    <main class="page-body">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Reports</h1>
+          <p class="page-subtitle">Generate FSL examination schedules ranked by priority.</p>
+        </div>
+        <div class="page-actions">
+          <button class="btn btn-secondary" onclick="window.print()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></polyline></svg>
+            Print Page
+          </button>
+        </div>
+      </div>
+
+      <!-- Disclaimer -->
+      <div class="disclaimer-banner mb-6">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m10.29 3.86-8.17 14A2 2 0 0 0 3.85 21h16.3a2 2 0 0 0 1.73-3l-8.18-14a2 2 0 0 0-3.44-.14z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span><strong>FSL Submission Schedule:</strong> Priority levels are investigator-assigned recommendations only. They do not represent automated forensic scoring or legal determinations. All classifications must be verified by the lead investigator before formal submission.</span>
+      </div>
+
+      <!-- Case Selector Toolbar -->
+      <div class="toolbar mb-6">
+        <div class="toolbar-left">
+          <select id="report-case-select" class="filter-select" style="min-width:300px">
+            <option value="">— Select a case to generate report —</option>
+          </select>
+          <select id="report-priority-filter" class="filter-select">
+            <option value="">All Priorities</option>
+          </select>
+        </div>
+        <div class="toolbar-right">
+          <button class="btn btn-primary" id="generate-report-btn" data-role="investigator" disabled>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Generate Report
+          </button>
+        </div>
+      </div>
+
+      <!-- Report Output -->
+      <div id="report-output">
+        <div class="empty-state">
+          <div class="empty-state-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <div class="empty-state-title">Select a Case</div>
+          <div class="empty-state-text">Choose a case from the dropdown above to generate the FSL examination schedule.</div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="js/utils.js"></script>
+<script src="js/data.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/app.js"></script>
+<script src="js/reports.js"></script>
+</body>
+</html>

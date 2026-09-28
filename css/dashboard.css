@@ -1,0 +1,203 @@
+/* ============================================================
+   ForensiTriage — Dashboard Styles
+   ============================================================ */
+
+/* ── Stats Row ──────────────────────────────────────────────── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-5);
+  margin-bottom: var(--space-8);
+}
+
+/* ── Dashboard Two-Column Layout ────────────────────────────── */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: var(--space-6);
+  align-items: start;
+}
+.dashboard-main { display: flex; flex-direction: column; gap: var(--space-6); }
+.dashboard-side  { display: flex; flex-direction: column; gap: var(--space-6); }
+
+/* ── Recent Cases Table ─────────────────────────────────────── */
+.cases-preview td .case-id {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  display: block;
+}
+.cases-preview td .case-name {
+  font-weight: var(--fw-medium);
+  color: var(--text);
+}
+.cases-preview td .case-date {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+/* ── Critical Evidence Panel ────────────────────────────────── */
+.critical-panel-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.critical-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--priority-critical-bg);
+  border: 1px solid var(--priority-critical-border);
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: box-shadow var(--transition);
+}
+.critical-item:hover { box-shadow: var(--shadow-md); text-decoration: none; }
+.critical-item-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  background: rgba(220,38,38,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--priority-critical);
+}
+.critical-item-icon svg { width: 14px; height: 14px; }
+.critical-item-info { flex: 1; min-width: 0; }
+.critical-item-name {
+  font-size: var(--text-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.critical-item-case {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+/* ── Activity Feed ──────────────────────────────────────────── */
+.activity-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.activity-item {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--border);
+}
+.activity-item:last-child { border-bottom: none; }
+.activity-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
+  background: var(--brand-blue);
+}
+.activity-dot.dot-red    { background: var(--danger); }
+.activity-dot.dot-green  { background: var(--success); }
+.activity-dot.dot-amber  { background: var(--warning); }
+.activity-dot.dot-gray   { background: var(--text-muted); }
+.activity-content { flex: 1; min-width: 0; }
+.activity-text {
+  font-size: var(--text-sm);
+  color: var(--text);
+  line-height: var(--lh-normal);
+}
+.activity-time {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ── Quick Access ───────────────────────────────────────────── */
+.quick-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+.quick-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+  text-align: center;
+}
+.quick-action:hover {
+  border-color: var(--brand-blue);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.08);
+  text-decoration: none;
+}
+.quick-action-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius);
+  background: var(--brand-blue-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brand-blue);
+}
+.quick-action-icon svg { width: 18px; height: 18px; }
+.quick-action-label {
+  font-size: var(--text-xs);
+  font-weight: var(--fw-semibold);
+  color: var(--text);
+}
+
+/* ── Priority Distribution ──────────────────────────────────── */
+.priority-bars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.priority-bar-item {
+  display: grid;
+  grid-template-columns: 80px 1fr 32px;
+  align-items: center;
+  gap: var(--space-3);
+}
+.priority-bar-label {
+  font-size: var(--text-xs);
+  font-weight: var(--fw-medium);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.priority-bar-track {
+  height: 6px;
+  background: var(--bg-secondary);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.priority-bar-fill {
+  height: 100%;
+  border-radius: 100px;
+  transition: width 0.6s ease;
+}
+.priority-bar-fill.critical  { background: var(--priority-critical); }
+.priority-bar-fill.high      { background: var(--priority-high); }
+.priority-bar-fill.medium    { background: var(--priority-medium); }
+.priority-bar-fill.low       { background: var(--priority-low); }
+.priority-bar-fill.unassigned{ background: var(--priority-unassigned); }
+.priority-bar-count {
+  font-size: var(--text-xs);
+  font-weight: var(--fw-semibold);
+  color: var(--text);
+  text-align: right;
+}

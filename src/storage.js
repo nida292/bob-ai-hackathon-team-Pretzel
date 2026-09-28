@@ -1,6 +1,9 @@
 /**
  * storage.js — localStorage persistence layer for ForensiTriage
  * All data is keyed under "forensitriage_*" to avoid collisions.
+ *
+ * Priority levels: Critical | High | Medium | Low | Unassigned
+ * Priority is MANUALLY set by investigators — never auto-calculated.
  */
 
 const Storage = (() => {
@@ -9,6 +12,21 @@ const Storage = (() => {
     evidence: 'forensitriage_evidence',
     settings: 'forensitriage_settings',
   };
+
+  // Valid manual priority levels (no numerical scoring)
+  const PRIORITY_LEVELS = ['Critical', 'High', 'Medium', 'Low', 'Unassigned'];
+
+  // Supported crime types (Other allows free-text)
+  const CRIME_TYPES = [
+    'Murder', 'Theft', 'Assault', 'Robbery',
+    'Cybercrime', 'Sexual Offence', 'Missing Person', 'Other',
+  ];
+
+  // Supported evidence categories (Other allows free-text)
+  const EVIDENCE_CATEGORIES = [
+    'Biological', 'Digital', 'Fingerprint / Impression',
+    'Trace', 'Physical', 'Document', 'Other',
+  ];
 
   // ── Helpers ──────────────────────────────────────────────────────────────
 
@@ -41,11 +59,12 @@ const Storage = (() => {
 
   function saveCase(caseObj) {
     const cases = getCases();
-    const idx = cases.findIndex(c => c.id === caseObj.id);
+    const now   = new Date().toISOString();
+    const idx   = cases.findIndex(c => c.id === caseObj.id);
     if (idx >= 0) {
-      cases[idx] = { ...cases[idx], ...caseObj, updatedAt: new Date().toISOString() };
+      cases[idx] = { ...cases[idx], ...caseObj, updatedAt: now };
     } else {
-      cases.unshift({ ...caseObj, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() });
+      cases.unshift({ ...caseObj, createdAt: now, updatedAt: now });
     }
     _write(KEYS.cases, cases);
     return caseObj;
@@ -73,18 +92,19 @@ const Storage = (() => {
 
   function saveEvidence(evidenceObj) {
     const all = _read(KEYS.evidence) || [];
+    const now = new Date().toISOString();
     const idx = all.findIndex(e => e.id === evidenceObj.id && e.caseId === evidenceObj.caseId);
     if (idx >= 0) {
-      all[idx] = { ...all[idx], ...evidenceObj, updatedAt: new Date().toISOString() };
+      all[idx] = { ...all[idx], ...evidenceObj, updatedAt: now };
     } else {
-      all.push({ ...evidenceObj, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() });
+      all.push({ ...evidenceObj, createdAt: now, updatedAt: now });
     }
     _write(KEYS.evidence, all);
     return evidenceObj;
   }
 
   function deleteEvidence(evidenceId, caseId) {
-    const all = _read(KEYS.evidence) || [];
+    const all     = _read(KEYS.evidence) || [];
     const filtered = all.filter(e => !(e.id === evidenceId && e.caseId === caseId));
     _write(KEYS.evidence, filtered);
   }
@@ -97,23 +117,82 @@ const Storage = (() => {
     return getEvidence(caseId).some(e => e.id === evidenceId);
   }
 
-  // ── Overrides ─────────────────────────────────────────────────────────────
-  // Overrides are stored on the evidence object itself as evidenceObj.override
+  // ── Manual Priority Changes ────────────────────────────────────────────────
+  // Priority is ONLY set by investigators. No automatic assignment.
+  // Each change is recorded in evidence.priorityHistory[].
 
-  function setOverride(evidenceId, caseId, overrideData) {
+  /**
+   * Record a manual priority change on an evidence item.
+   * @param {string} evidenceId
+   * @param {string} caseId
+   * @param {object} change  { newPriority, investigator, reason? }
+   * @returns {boolean}
+   */
+  function recordPriorityChange(evidenceId, caseId, change) {
     const ev = getEvidenceById(evidenceId, caseId);
     if (!ev) return false;
-    ev.override = overrideData;
+
+    const previousPriority = ev.priority || 'Unassigned';
+    const historyEntry = {
+      previousPriority,
+      newPriority:    change.newPriority,
+      investigator:   change.investigator || 'Unknown',
+      reason:         change.reason || '',
+      timestamp:      new Date().toISOString(),
+    };
+
+    ev.priority        = change.newPriority;
+    ev.priorityHistory = [...(ev.priorityHistory || []), historyEntry];
     saveEvidence(ev);
     return true;
   }
 
-  function clearOverride(evidenceId, caseId) {
-    const ev = getEvidenceById(evidenceId, caseId);
-    if (!ev) return false;
-    delete ev.override;
-    saveEvidence(ev);
-    return true;
+  // ── Generators ────────────────────────────────────────────────────────────
+
+  function generateCaseId() {
+    const now  = new Date();
+    const yy   = String(now.getFullYear()).slice(-2);
+    const mm   = String(now.getMonth() + 1).padStart(2, '0');
+    const rand = Math.floor(1000 + Math.random() * 9000);
+    return `CASE-${yy}${mm}-${rand}`;
+  }
+
+  function generateEvidenceId(caseId) {
+    const count = getEvidence(caseId).length + 1;
+    return `EV-${String(count).padStart(3, '0')}`;
+  }
+
+  // ── Stats ─────────────────────────────────────────────────────────────────
+
+  function getStats() {
+    const cases       = getCases();
+    const allEvidence = getEvidence();
+
+    // Priority counts — purely from manually-set ev.priority field
+    const priorityCounts = { Critical: 0, High: 0, Medium: 0, Low: 0, Unassigned: 0 };
+    allEvidence.forEach(ev => {
+      const p = ev.priority || 'Unassigned';
+      if (priorityCounts[p] !== undefined) priorityCounts[p]++;
+      else priorityCounts['Unassigned']++;
+    });
+
+    return {
+      totalCases:     cases.length,
+      activeCases:    cases.filter(c => c.status === 'Active').length,
+      totalEvidence:  allEvidence.length,
+      priorityCounts,
+    };
+  }
+
+  function getStatsByCaseId(caseId) {
+    const evidence = getEvidence(caseId);
+    const priorityCounts = { Critical: 0, High: 0, Medium: 0, Low: 0, Unassigned: 0 };
+    evidence.forEach(ev => {
+      const p = ev.priority || 'Unassigned';
+      if (priorityCounts[p] !== undefined) priorityCounts[p]++;
+      else priorityCounts['Unassigned']++;
+    });
+    return { totalEvidence: evidence.length, priorityCounts };
   }
 
   // ── Demo management ────────────────────────────────────────────────────────
@@ -139,40 +218,28 @@ const Storage = (() => {
     }
   }
 
-  // ── Generators ────────────────────────────────────────────────────────────
-
-  function generateCaseId() {
-    const now = new Date();
-    const yy = String(now.getFullYear()).slice(-2);
-    const mm = String(now.getMonth() + 1).padStart(2, '0');
-    const rand = Math.floor(1000 + Math.random() * 9000);
-    return `CASE-${yy}${mm}-${rand}`;
-  }
-
-  function generateEvidenceId(caseId) {
-    // Count existing evidence in this case
-    const count = getEvidence(caseId).length + 1;
-    return `EV-${String(count).padStart(3, '0')}`;
-  }
-
-  // ── Stats ─────────────────────────────────────────────────────────────────
-
-  function getStats() {
-    const cases = getCases();
-    const allEvidence = getEvidence();
-    return {
-      totalCases:    cases.length,
-      activeCases:   cases.filter(c => c.status === 'active').length,
-      totalEvidence: allEvidence.length,
-    };
-  }
-
   return {
+    // Constants
+    PRIORITY_LEVELS,
+    CRIME_TYPES,
+    EVIDENCE_CATEGORIES,
+
+    // Cases
     getCases, saveCase, deleteCase, getCaseById,
+
+    // Evidence
     getEvidence, saveEvidence, deleteEvidence, getEvidenceById, evidenceIdExists,
-    setOverride, clearOverride,
+
+    // Manual priority
+    recordPriorityChange,
+
+    // Demo
     getDemoCaseId, setDemoCaseId, resetDemoCase,
+
+    // ID generators
     generateCaseId, generateEvidenceId,
-    getStats,
+
+    // Stats
+    getStats, getStatsByCaseId,
   };
 })();

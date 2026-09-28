@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — ForensiTriage</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+<div class="app-layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <div class="main-content">
+    <header class="topbar" id="topbar"></header>
+
+    <main class="page-body">
+
+      <!-- Disclaimer -->
+      <div class="disclaimer-banner mb-6">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m10.29 3.86-8.17 14A2 2 0 0 0 3.85 21h16.3a2 2 0 0 0 1.73-3l-8.18-14a2 2 0 0 0-3.44-.14z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span><strong>Decision-Support Tool:</strong> All priority classifications are investigator-assigned recommendations. ForensiTriage does not make forensic or legal determinations. All AI-generated suggestions must be reviewed before acting.</span>
+      </div>
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <div>
+          <h1 class="page-title" id="dash-greeting">Good morning</h1>
+          <p class="page-subtitle">Overview of active cases and evidence requiring attention.</p>
+        </div>
+        <div class="page-actions">
+          <a href="cases.html" class="btn btn-secondary btn-sm">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            All Cases
+          </a>
+          <button class="btn btn-primary btn-sm" id="dash-new-case-btn" data-action="new-case">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            New Case
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats Row -->
+      <div class="stats-grid" id="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-content">
+            <div class="stat-card-label">Total Cases</div>
+            <div class="stat-card-value" id="stat-total-cases">—</div>
+            <div class="stat-card-meta" id="stat-cases-meta">Loading…</div>
+          </div>
+          <div class="stat-card-icon stat-icon-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-content">
+            <div class="stat-card-label">Total Evidence Items</div>
+            <div class="stat-card-value" id="stat-total-evidence">—</div>
+            <div class="stat-card-meta" id="stat-evidence-meta">Loading…</div>
+          </div>
+          <div class="stat-card-icon stat-icon-navy">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-content">
+            <div class="stat-card-label">Critical Evidence</div>
+            <div class="stat-card-value" id="stat-critical">—</div>
+            <div class="stat-card-meta">Requires immediate attention</div>
+          </div>
+          <div class="stat-card-icon stat-icon-red">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-content">
+            <div class="stat-card-label">Unassigned Priority</div>
+            <div class="stat-card-value" id="stat-unassigned">—</div>
+            <div class="stat-card-meta">Awaiting investigator review</div>
+          </div>
+          <div class="stat-card-icon stat-icon-amber">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m10.29 3.86-8.17 14A2 2 0 0 0 3.85 21h16.3a2 2 0 0 0 1.73-3l-8.18-14a2 2 0 0 0-3.44-.14z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Grid -->
+      <div class="dashboard-grid">
+
+        <!-- Main column -->
+        <div class="dashboard-main">
+
+          <!-- Recent Cases -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Recent Cases</div>
+                <div class="card-subtitle">Your most recently updated cases</div>
+              </div>
+              <a href="cases.html" class="btn btn-ghost btn-sm">View All →</a>
+            </div>
+            <div class="table-wrapper" style="border:none;border-radius:0">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Case</th>
+                    <th>Crime Type</th>
+                    <th>Status</th>
+                    <th>Evidence</th>
+                    <th>Updated</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="recent-cases-table">
+                  <tr><td colspan="6" class="text-muted text-sm" style="padding:24px;text-align:center">Loading…</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Priority Distribution -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Evidence Priority Distribution</div>
+                <div class="card-subtitle">Across all active cases</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="priority-bars" id="priority-bars">
+                <div class="text-muted text-sm">Loading…</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Side column -->
+        <div class="dashboard-side">
+
+          <!-- Critical Evidence -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title" style="color:var(--priority-critical)">
+                  <span style="display:inline-flex;align-items:center;gap:6px">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    Critical Evidence
+                  </span>
+                </div>
+                <div class="card-subtitle">Requires immediate attention</div>
+              </div>
+            </div>
+            <div class="card-body" style="padding-top:var(--space-4)">
+              <div class="critical-panel-list" id="critical-panel">
+                <div class="text-muted text-sm">Loading…</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Quick Actions</div>
+            </div>
+            <div class="card-body">
+              <div class="quick-actions">
+                <a href="cases.html" class="quick-action">
+                  <div class="quick-action-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                  </div>
+                  <span class="quick-action-label">All Cases</span>
+                </a>
+                <a href="#" class="quick-action" id="qa-new-case" data-action="new-case">
+                  <div class="quick-action-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  </div>
+                  <span class="quick-action-label">New Case</span>
+                </a>
+                <a href="reports.html" class="quick-action">
+                  <div class="quick-action-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  </div>
+                  <span class="quick-action-label">Reports</span>
+                </a>
+                <a href="profile.html" class="quick-action">
+                  <div class="quick-action-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  </div>
+                  <span class="quick-action-label">Profile</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Activity Feed -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Recent Activity</div>
+            </div>
+            <div class="card-body" style="padding-top:0">
+              <div class="activity-feed" id="activity-feed">
+                <div class="text-muted text-sm" style="padding-top:16px">Loading…</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div><!-- /dashboard-grid -->
+
+    </main>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="js/utils.js"></script>
+<script src="js/data.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/app.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

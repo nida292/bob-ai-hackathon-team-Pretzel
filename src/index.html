@@ -12,7 +12,6 @@
        SIDEBAR
        ═══════════════════════════════════════════════════════════════ -->
   <aside id="sidebar" role="navigation" aria-label="Main navigation">
-    <!-- Brand -->
     <div class="sidebar-brand">
       <div class="sidebar-brand-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -25,7 +24,6 @@
       </div>
     </div>
 
-    <!-- Navigation -->
     <nav class="sidebar-nav">
       <div class="sidebar-section-label">Workspace</div>
 
@@ -43,21 +41,7 @@
         <span class="nav-label">Cases</span>
       </button>
 
-      <div class="sidebar-section-label">Analysis</div>
-
-      <button class="nav-item" data-view="evidence" id="nav-evidence" disabled>
-        <span class="nav-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
-        </span>
-        <span class="nav-label">Evidence Intake</span>
-      </button>
-
-      <button class="nav-item" data-view="priorities" id="nav-priorities" disabled>
-        <span class="nav-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        </span>
-        <span class="nav-label">Priority Queue</span>
-      </button>
+      <div class="sidebar-section-label">Output</div>
 
       <button class="nav-item" data-view="schedule" id="nav-schedule" disabled>
         <span class="nav-icon">
@@ -65,8 +49,6 @@
         </span>
         <span class="nav-label">FSL Schedule</span>
       </button>
-
-      <div class="sidebar-section-label">Output</div>
 
       <button class="nav-item" data-view="report" id="nav-report" disabled>
         <span class="nav-icon">
@@ -76,7 +58,6 @@
       </button>
     </nav>
 
-    <!-- Footer / Collapse -->
     <div class="sidebar-footer">
       <button class="sidebar-collapse-btn" id="sidebar-toggle" aria-label="Toggle sidebar">
         <span class="collapse-icon">
@@ -113,9 +94,6 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
           <span class="notif-dot"></span>
         </button>
-        <button class="topbar-icon-btn" title="Settings" aria-label="Settings">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 00-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-        </button>
         <div class="topbar-profile" title="Investigator profile">
           <div class="profile-avatar" id="profile-initials">—</div>
           <span class="profile-name" id="profile-name">Investigator</span>
@@ -126,12 +104,10 @@
     <!-- DISCLAIMER BANNER -->
     <div class="disclaimer-banner" role="alert">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-      <strong>Decision-Support Prototype:</strong>&nbsp;ForensiTriage uses rule-based logic only. It does <em>not</em> replace qualified forensic experts, determine guilt, or produce legally validated conclusions. Data is stored locally — not suitable for real confidential evidence.
+      <strong>Decision-Support Tool:</strong>&nbsp;ForensiTriage assists investigators in organising and managing evidence. All priorities are set <em>manually</em> by qualified forensic personnel. This tool does <em>not</em> automatically assign priorities, determine guilt, or produce legally validated conclusions.
     </div>
 
-    <!-- ═══════════════════════════════════════════════════════════════
-         MAIN CONTENT
-         ═══════════════════════════════════════════════════════════════ -->
+    <!-- MAIN CONTENT -->
     <main id="main-content" role="main">
 
       <!-- ─── DASHBOARD VIEW ─── -->
@@ -140,7 +116,7 @@
         <div class="view-header">
           <div class="view-header-left">
             <h1 class="view-title" id="dashboard-heading">Evidence Intelligence Dashboard</h1>
-            <p class="view-subtitle">AI-assisted evidence triage for structured and transparent forensic examination.</p>
+            <p class="view-subtitle">Case and evidence overview. All priority levels are set manually by investigators.</p>
           </div>
           <div class="view-header-actions">
             <button class="btn btn-secondary btn-sm" data-action="load-demo">
@@ -162,7 +138,7 @@
             </div>
             <div class="stat-body">
               <div class="stat-value" id="stat-total-cases">0</div>
-              <div class="stat-label">Active Cases</div>
+              <div class="stat-label">Total Cases</div>
             </div>
           </div>
           <div class="stat-card success">
@@ -171,7 +147,7 @@
             </div>
             <div class="stat-body">
               <div class="stat-value" id="stat-total-evidence">0</div>
-              <div class="stat-label">Evidence Items</div>
+              <div class="stat-label">Total Evidence</div>
             </div>
           </div>
           <div class="stat-card critical">
@@ -185,208 +161,118 @@
           </div>
           <div class="stat-card warning">
             <div class="stat-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
             </div>
             <div class="stat-body">
-              <div class="stat-value" id="stat-active-cases">0</div>
-              <div class="stat-label">Urgent Testing</div>
+              <div class="stat-value" id="stat-unassigned">0</div>
+              <div class="stat-label">Unassigned Priority</div>
             </div>
           </div>
         </div>
 
-        <!-- Row 1: Priority Distribution + Priority Queue -->
+        <!-- Priority breakdown + Recent cases -->
         <div class="dashboard-grid-wide">
-          <!-- Priority Queue Table -->
-          <div class="card">
-            <div class="card-header">
-              <div class="card-header-left">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                <span class="card-title">Priority Evidence Queue</span>
-              </div>
-              <button class="btn btn-secondary btn-sm" data-action="run-prioritization" id="qa-run-priority" disabled>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
-                Run Analysis
-              </button>
-            </div>
-            <div id="dashboard-queue-container">
-              <div class="empty-state">
-                <div class="empty-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                </div>
-                <h3>No prioritization data</h3>
-                <p>Select a case and run evidence prioritization to populate this queue.</p>
-                <button class="btn btn-primary btn-sm" data-action="new-case">Create a Case</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Priority Distribution Chart -->
-          <div class="card">
-            <div class="card-header">
-              <div class="card-header-left">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-                <span class="card-title">Priority Distribution</span>
-              </div>
-              <span class="card-badge" id="dist-total-badge">0 items</span>
-            </div>
-            <div id="priority-dist-container">
-              <div class="priority-chart">
-                <div class="chart-row">
-                  <span class="chart-label" style="color:var(--critical)">Critical</span>
-                  <div class="chart-bar-track"><div class="chart-bar-fill critical" id="dist-bar-critical" style="width:0%"></div></div>
-                  <span class="chart-count" id="dist-count-critical">0</span>
-                  <span class="chart-pct" id="dist-pct-critical">—</span>
-                </div>
-                <div class="chart-row">
-                  <span class="chart-label" style="color:var(--high)">High</span>
-                  <div class="chart-bar-track"><div class="chart-bar-fill high" id="dist-bar-high" style="width:0%"></div></div>
-                  <span class="chart-count" id="dist-count-high">0</span>
-                  <span class="chart-pct" id="dist-pct-high">—</span>
-                </div>
-                <div class="chart-row">
-                  <span class="chart-label" style="color:var(--routine)">Routine</span>
-                  <div class="chart-bar-track"><div class="chart-bar-fill routine" id="dist-bar-routine" style="width:0%"></div></div>
-                  <span class="chart-count" id="dist-count-routine">0</span>
-                  <span class="chart-pct" id="dist-pct-routine">—</span>
-                </div>
-              </div>
-            </div>
-            <div class="card-footer">
-              <span>Rule-based scoring engine</span>
-              <button class="btn btn-ghost btn-xs" data-action="run-prioritization" id="qa-run-priority-2" disabled>Recalculate</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Row 2: Urgent Attention + Timeline + Quick Actions -->
-        <div class="dashboard-grid">
-          <!-- Urgent Attention -->
-          <div class="card">
-            <div class="card-header">
-              <div class="card-header-left">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--critical)"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                <span class="card-title">Urgent Attention Required</span>
-              </div>
-            </div>
-            <div id="urgent-panel-container">
-              <div class="empty-state">
-                <div class="empty-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
-                </div>
-                <p>No urgent items. Add evidence to a case to begin triage.</p>
-              </div>
-            </div>
-          </div>
-
           <!-- Recent Cases -->
           <div class="card">
             <div class="card-header">
               <div class="card-header-left">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
-                <span class="card-title">Recent Cases</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+                <span class="card-title">Cases</span>
               </div>
-              <button class="btn btn-secondary btn-sm" data-action="new-case">+ New</button>
+              <div style="display:flex;gap:0.5rem;align-items:center">
+                <select id="dash-filter-status" class="filter-select" style="min-width:120px" aria-label="Filter by status">
+                  <option value="">All Statuses</option>
+                  <option value="Active">Active</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Closed">Closed</option>
+                </select>
+                <button class="btn btn-secondary btn-sm" data-action="new-case">+ New</button>
+              </div>
             </div>
             <div id="recent-cases-list"></div>
           </div>
-        </div>
 
-        <!-- Row 3: FSL Timeline + Quick Actions + Activity -->
-        <div class="dashboard-grid">
-          <!-- FSL Examination Timeline -->
+          <!-- Priority Breakdown -->
           <div class="card">
             <div class="card-header">
               <div class="card-header-left">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                <span class="card-title">FSL Examination Timeline</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                <span class="card-title">Priority Breakdown</span>
               </div>
-              <button class="btn btn-secondary btn-sm" data-action="generate-report" id="qa-report" disabled>View Report</button>
+              <span class="card-badge" id="dist-total-badge">0 items</span>
             </div>
-            <div id="fsl-timeline-container">
-              <div class="empty-state">
-                <div class="empty-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                </div>
-                <p>Run prioritization on a case to generate the FSL schedule.</p>
-                <button class="btn btn-secondary btn-sm" data-action="run-prioritization" id="qa-fsl-btn" disabled>Generate Schedule</button>
+            <div class="priority-chart">
+              <div class="chart-row">
+                <span class="chart-label" style="color:var(--critical)">Critical</span>
+                <div class="chart-bar-track"><div class="chart-bar-fill critical" id="dist-bar-critical" style="width:0%"></div></div>
+                <span class="chart-count" id="dist-count-critical">0</span>
               </div>
+              <div class="chart-row">
+                <span class="chart-label" style="color:var(--high)">High</span>
+                <div class="chart-bar-track"><div class="chart-bar-fill high" id="dist-bar-high" style="width:0%"></div></div>
+                <span class="chart-count" id="dist-count-high">0</span>
+              </div>
+              <div class="chart-row">
+                <span class="chart-label" style="color:var(--blue)">Medium</span>
+                <div class="chart-bar-track"><div class="chart-bar-fill medium" id="dist-bar-medium" style="width:0%"></div></div>
+                <span class="chart-count" id="dist-count-medium">0</span>
+              </div>
+              <div class="chart-row">
+                <span class="chart-label" style="color:var(--routine)">Low</span>
+                <div class="chart-bar-track"><div class="chart-bar-fill routine" id="dist-bar-low" style="width:0%"></div></div>
+                <span class="chart-count" id="dist-count-low">0</span>
+              </div>
+              <div class="chart-row">
+                <span class="chart-label" style="color:var(--text-muted)">Unassigned</span>
+                <div class="chart-bar-track"><div class="chart-bar-fill unassigned" id="dist-bar-unassigned" style="width:0%"></div></div>
+                <span class="chart-count" id="dist-count-unassigned">0</span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size:0.72rem;color:var(--text-muted)">All priorities manually assigned by investigators</span>
             </div>
           </div>
+        </div>
 
-          <!-- Quick Actions + Activity -->
-          <div style="display:flex;flex-direction:column;gap:1rem;">
-            <div class="card">
-              <div class="card-header">
-                <span class="card-title">Quick Actions</span>
-              </div>
-              <div class="quick-actions">
-                <button class="quick-action-btn" data-action="new-case">
-                  <div class="qa-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/></svg>
-                  </div>
-                  <span class="qa-label">New Case</span>
-                </button>
-                <button class="quick-action-btn" data-action="add-evidence" id="qa-add-evidence" disabled>
-                  <div class="qa-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-                  </div>
-                  <span class="qa-label">Add Evidence</span>
-                </button>
-                <button class="quick-action-btn" data-action="run-prioritization" id="qa-run-priority-3" disabled>
-                  <div class="qa-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                  </div>
-                  <span class="qa-label">Run Prioritization</span>
-                </button>
-                <button class="quick-action-btn" data-action="generate-report" id="qa-report-2" disabled>
-                  <div class="qa-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                  </div>
-                  <span class="qa-label">Generate Report</span>
-                </button>
-                <button class="quick-action-btn warning-action" data-action="load-demo">
-                  <div class="qa-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                  </div>
-                  <span class="qa-label">Load Demo</span>
-                </button>
-                <button class="quick-action-btn danger-action" data-action="reset-demo" id="qa-reset-demo" hidden>
-                  <div class="qa-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
-                  </div>
-                  <span class="qa-label">Reset Demo</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Recent Activity -->
-            <div class="card" style="flex:1">
-              <div class="card-header">
-                <span class="card-title">Recent Activity</span>
-              </div>
-              <div id="activity-container">
-                <div class="activity-item">
-                  <div class="activity-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                  </div>
-                  <div class="activity-text">
-                    <div class="activity-desc">System initialised. No cases loaded yet.</div>
-                    <div class="activity-time">Just now</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <!-- Quick Actions -->
+        <div class="card" style="margin-bottom:1rem">
+          <div class="card-header"><span class="card-title">Quick Actions</span></div>
+          <div class="quick-actions">
+            <button class="quick-action-btn" data-action="new-case">
+              <div class="qa-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/></svg></div>
+              <span class="qa-label">New Case</span>
+            </button>
+            <button class="quick-action-btn" data-action="add-evidence" id="qa-add-evidence" disabled>
+              <div class="qa-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+              <span class="qa-label">Add Evidence</span>
+            </button>
+            <button class="quick-action-btn" data-action="view-active-case" id="qa-view-case" disabled>
+              <div class="qa-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+              <span class="qa-label">View Active Case</span>
+            </button>
+            <button class="quick-action-btn" data-action="generate-report" id="qa-report" disabled>
+              <div class="qa-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+              <span class="qa-label">Generate Report</span>
+            </button>
+            <button class="quick-action-btn warning-action" data-action="load-demo">
+              <div class="qa-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="qa-label">Load Demo</span>
+            </button>
+            <button class="quick-action-btn danger-action" data-action="reset-demo" id="qa-reset-demo" hidden>
+              <div class="qa-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></div>
+              <span class="qa-label">Reset Demo</span>
+            </button>
           </div>
         </div>
 
       </section>
 
-      <!-- ─── CASES VIEW ─── -->
+      <!-- ─── CASES LIST VIEW ─── -->
       <section id="view-cases" class="view" aria-labelledby="cases-heading" hidden>
         <div class="view-header">
           <div class="view-header-left">
             <h1 class="view-title" id="cases-heading">Case Management</h1>
-            <p class="view-subtitle">Create and manage investigation cases. Select a case to begin evidence intake.</p>
+            <p class="view-subtitle">Create and manage investigation cases. Open a case to view and add evidence.</p>
           </div>
           <div class="view-header-actions">
             <button class="btn btn-primary" data-action="new-case">
@@ -395,92 +281,32 @@
             </button>
           </div>
         </div>
-        <div id="cases-list-container">
-          <div class="card">
-            <div class="empty-state">
-              <div class="empty-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
-              </div>
-              <h3>No cases yet</h3>
-              <p>Create your first investigation case to begin evidence intake and triage.</p>
-              <button class="btn btn-primary" data-action="new-case">Create First Case</button>
-            </div>
-          </div>
-        </div>
+        <div id="cases-list-container"></div>
       </section>
 
-      <!-- ─── EVIDENCE VIEW ─── -->
-      <section id="view-evidence" class="view" aria-labelledby="evidence-heading" hidden>
+      <!-- ─── CASE DETAILS VIEW ─── -->
+      <section id="view-case-detail" class="view" aria-labelledby="case-detail-heading" hidden>
         <div class="view-header">
           <div class="view-header-left">
-            <h1 class="view-title" id="evidence-heading">Evidence Intake</h1>
-            <p class="view-subtitle active-case-label" id="evidence-case-label">Select a case to view evidence.</p>
+            <button class="btn btn-ghost btn-sm" data-action="back-to-cases" style="margin-bottom:0.4rem">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="15 18 9 12 15 6"/></svg>
+              All Cases
+            </button>
+            <h1 class="view-title" id="case-detail-heading">Case Details</h1>
+            <p class="view-subtitle" id="case-detail-subtitle"></p>
           </div>
           <div class="view-header-actions">
+            <button class="btn btn-secondary" id="btn-edit-case" data-action="edit-current-case">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Edit Case
+            </button>
             <button class="btn btn-primary" data-action="add-evidence" id="btn-add-evidence">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               Add Evidence
             </button>
           </div>
         </div>
-        <div class="evidence-toolbar">
-          <div class="topbar-search" style="width:auto;flex:1;max-width:320px;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="search" id="evidence-search" placeholder="Search evidence by name, type, or ID…" aria-label="Search evidence" />
-          </div>
-          <select id="evidence-filter-type" class="filter-select" aria-label="Filter by type">
-            <option value="">All Types</option>
-            <option value="biological">Biological</option>
-            <option value="digital">Digital</option>
-            <option value="fingerprint">Fingerprint / Impression</option>
-            <option value="trace">Trace</option>
-            <option value="physical">Physical</option>
-            <option value="document">Document</option>
-            <option value="other">Other</option>
-          </select>
-          <select id="evidence-filter-priority" class="filter-select" aria-label="Filter by priority">
-            <option value="">All Priorities</option>
-            <option value="critical">Critical</option>
-            <option value="high">High</option>
-            <option value="routine">Routine</option>
-          </select>
-        </div>
-        <div id="evidence-list-container">
-          <div class="card">
-            <div class="empty-state">
-              <div class="empty-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
-              </div>
-              <p>No evidence added to this case yet.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ─── PRIORITIES VIEW ─── -->
-      <section id="view-priorities" class="view" aria-labelledby="priorities-heading" hidden>
-        <div class="view-header">
-          <div class="view-header-left">
-            <h1 class="view-title" id="priorities-heading">Priority Queue</h1>
-            <p class="view-subtitle active-case-label" id="priorities-case-label">Run prioritization to see results.</p>
-          </div>
-          <div class="view-header-actions">
-            <button class="btn btn-primary" data-action="run-prioritization">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
-              Recalculate
-            </button>
-          </div>
-        </div>
-        <div class="priority-legend">
-          <div class="legend-item"><span class="priority-badge critical">Critical</span> Immediate — time-sensitive or highly contaminated</div>
-          <div class="legend-item"><span class="priority-badge high">High</span> Within 24 h — significant forensic value</div>
-          <div class="legend-item"><span class="priority-badge routine">Routine</span> Standard processing timeline</div>
-        </div>
-        <div class="priority-notice" role="note">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          <span><strong>Rule-Based Scores:</strong> Priority scores are produced by a deterministic rule-based algorithm, not a trained AI model. They are prototype estimates only — final prioritization decisions must be made by qualified forensic personnel.</span>
-        </div>
-        <div id="priorities-list-container"></div>
+        <div id="case-detail-container"></div>
       </section>
 
       <!-- ─── SCHEDULE VIEW ─── -->
@@ -488,18 +314,18 @@
         <div class="view-header">
           <div class="view-header-left">
             <h1 class="view-title" id="schedule-heading">FSL Examination Schedule</h1>
-            <p class="view-subtitle active-case-label" id="schedule-case-label">Proposed examination order for forensic science laboratory submission.</p>
+            <p class="view-subtitle active-case-label" id="schedule-case-label">Select a case to view the schedule.</p>
           </div>
           <div class="view-header-actions">
             <button class="btn btn-secondary" data-action="generate-report">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
               Generate Report
             </button>
           </div>
         </div>
         <div class="schedule-notice" role="note">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          <span><strong>Proposed Order Only:</strong> This schedule is a suggested examination order based on calculated priorities. It does not reflect actual laboratory capacity, staff availability, or instrument scheduling. Qualified forensic supervisors must confirm and adjust the schedule.</span>
+          <span><strong>Proposed Order Only:</strong> The schedule below reflects the investigator-assigned priority order. It does not represent laboratory capacity, staff availability, or instrument scheduling. All priorities must be confirmed by a qualified forensic supervisor.</span>
         </div>
         <div id="schedule-container"></div>
       </section>
@@ -509,11 +335,11 @@
         <div class="view-header">
           <div class="view-header-left">
             <h1 class="view-title" id="report-heading">Printable Report</h1>
-            <p class="view-subtitle">Evidence prioritization report for FSL submission and case documentation.</p>
+            <p class="view-subtitle">Evidence report for FSL submission and case documentation.</p>
           </div>
           <div class="view-header-actions">
             <button class="btn btn-primary" onclick="window.print()">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
               Print / Save as PDF
             </button>
           </div>
@@ -524,9 +350,7 @@
     </main>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════
-       MODAL
-       ═══════════════════════════════════════════════════════════════ -->
+  <!-- MODAL -->
   <div id="modal-overlay" class="modal-overlay" hidden aria-modal="true" role="dialog">
     <div class="modal" id="modal-box">
       <button class="modal-close" id="modal-close-btn" aria-label="Close">✕</button>
@@ -534,14 +358,10 @@
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════
-       TOAST NOTIFICATIONS
-       ═══════════════════════════════════════════════════════════════ -->
+  <!-- TOAST -->
   <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
-  <!-- ═══════════════════════════════════════════════════════════════
-       SCRIPTS
-       ═══════════════════════════════════════════════════════════════ -->
+  <!-- SCRIPTS -->
   <script src="storage.js"></script>
   <script src="prioritization.js"></script>
   <script src="reports.js"></script>

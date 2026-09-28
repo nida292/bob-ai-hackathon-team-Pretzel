@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cases — ForensiTriage</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+<div class="app-layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <div class="main-content">
+    <header class="topbar" id="topbar"></header>
+
+    <main class="page-body">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Cases</h1>
+          <p class="page-subtitle">All cases in the system. Click a case to view evidence.</p>
+        </div>
+        <div class="page-actions">
+          <button class="btn btn-primary" id="new-case-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            New Case
+          </button>
+        </div>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <div class="search-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="search" id="cases-search" class="search-input" placeholder="Search cases…" autocomplete="off" />
+          </div>
+          <select id="cases-status-filter" class="filter-select">
+            <option value="">All Statuses</option>
+            <option value="Active">Active</option>
+            <option value="Pending">Pending</option>
+            <option value="Under Review">Under Review</option>
+            <option value="Closed">Closed</option>
+          </select>
+          <select id="cases-crime-filter" class="filter-select">
+            <option value="">All Crime Types</option>
+          </select>
+        </div>
+        <div class="toolbar-right">
+          <span class="text-xs text-muted" id="cases-count"></span>
+        </div>
+      </div>
+
+      <!-- Cases Table -->
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Case Number</th>
+              <th>Title</th>
+              <th>Crime Type</th>
+              <th>Status</th>
+              <th>Evidence</th>
+              <th>Lead Investigator</th>
+              <th>Date of Incident</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="cases-table-body">
+            <tr><td colspan="8" style="padding:40px;text-align:center" class="text-muted text-sm">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Empty State (hidden by default) -->
+      <div id="cases-empty" class="empty-state hidden">
+        <div class="empty-state-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="empty-state-title">No cases found</div>
+        <div class="empty-state-text" id="cases-empty-text">No cases match your current filters.</div>
+        <button class="btn btn-primary" id="cases-empty-new-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Create First Case
+        </button>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="js/utils.js"></script>
+<script src="js/data.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/app.js"></script>
+<script src="js/cases.js"></script>
+</body>
+</html>
